@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Indie+Flower&family=Kaushan+Script&family=Knewave&family=Permanent+Marker&family=Rock+Salt&display=swap");
+
+/* 
+font-family: 'Indie Flower', cursive;
+font-family: 'Knewave', cursive;
+font-family: 'Permanent Marker', cursive; */
+
+body {
+  min-height: 98vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.field {
+  width: 612px;
+  height: 612px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  background-image: linear-gradient(
+      180deg,
+      rgba(211, 204, 204, 0.5),
+      rgba(211, 204, 204, 0.5)
+    ),
+    url("img/6033194649.jpg");
+  background-repeat: no-repeat;
+}
+
+.cell {
+  border: 3px solid;
+  width: 200px;
+  height: 200px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100pt;
+  font-family: "Knewave", "Arial Narrow", Arial, sans-serif;
+}
+
+.podskazka {
+  color: grey;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div[data-cell="0"] {
+  border-top: 0;
+  border-left: 0;
+}
+
+div[data-cell="1"] {
+  border-top: 0;
+}
+
+div[data-cell="2"] {
+  border-top: 0;
+  border-right: 0;
+}
+
+div[data-cell="3"] {
+  border-left: 0;
+}
+
+div[data-cell="5"] {
+  border-right: 0;
+}
+
+div[data-cell="6"] {
+  border-bottom: 0;
+  border-left: 0;
+}
+
+div[data-cell="7"] {
+  border-bottom: 0;
+}
+
+div[data-cell="8"] {
+  border-bottom: 0;
+  border-right: 0;
+}
