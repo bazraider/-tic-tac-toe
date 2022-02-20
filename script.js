@@ -5,7 +5,8 @@ const wins = [
 [0, 3, 6], 
 [1, 4, 7], 
 [2, 5, 8], 
-[0, 4, 8], 
+[0, 4, 8],
+[2, 4, 6], 
 [2, 5, 6]];
 const cells = document.querySelectorAll('.cell');
 const podskazka = document.querySelectorAll('.podskazka');
@@ -20,53 +21,71 @@ podskazka.forEach(word => word.addEventListener('mouseover', () => {
     word.innerHTML = 'X';
   } else word.innerHTML = 'O';
 }))
-     
+
 podskazka.forEach(word => word.addEventListener('mouseout', () => {
   if (true) {
     word.innerHTML = '';
     }
 }))
 
-/* 
-1. Поочередно проставляем "X" и "O" на клик мышки и 
-2. Заполняем массив ходов крестиками и ноликами в зависимости от места установки на поле
-3. Cчётчик кликов 
- */
 cells.forEach(eachCell => eachCell.addEventListener('click', () => {
   if (clicks % 2 === 0) {
-    eachCell.innerHTML = arrayOfFreeCells[eachCell.dataset.cell] = 'X';
-    clicks += 1;
-    eachCell.style.pointerEvents='none';
+    eachCell.innerHTML = arrayOfFreeCells[eachCell.dataset.cell] = 'X'; /* Поочередно проставляем "X" и "O" на клик мышки и Заполняем массив ходов крестиками и ноликами в зависимости от места установки на поле.*/
+    clicks += 1; //Cчётчик кликов.
+    eachCell.style.pointerEvents='none';//Деактивируем поле стилем pointerEvents если в нём стоит Крестик или Нолик.
+    xoInArrayWins();
   } else {
-    eachCell.innerHTML = arrayOfFreeCells[eachCell.dataset.cell] = 'O';
-    clicks += 1;
-    eachCell.style.pointerEvents='none';
+    eachCell.innerHTML = arrayOfFreeCells[eachCell.dataset.cell] = 'O'; /* Поочередно проставляем "X" и "O" на клик мышки и Заполняем массив ходов крестиками и ноликами в зависимости от места установки на поле.*/
+    clicks += 1; //Cчётчик кликов.
+    eachCell.style.pointerEvents='none';//Деактивируем поле стилем pointerEvents если в нём стоит Крестик или Нолик.
+    xoInArrayWins();
   }
-  console.log(arrayOfFreeCells);
 }))
 
-//Счётчик кликов первый. Не корректно работал, т.к. можно было 2 раза нажать на одну ячейку и сменить очередь хода
-/* document.querySelector('.field').addEventListener('click', clickcount => {
-  clicks += 1;
-  console.log(clicks);
-}) */
+//Определяем номера ячеек где поставлен "Х"
+function locatedOfX(arr) {
+  let polozhenieX = [];  
+    for (i = 0; i < arr.length; i++) {
+      if (arr[i] === 'X') {
+        polozhenieX.push(i);
+      } 
+    }
+  return polozhenieX;
+}
 
-//Функция getComputedStyle позволяет получить значение любого CSS свойства элемента, даже из CSS файла. пример: let объект = getComputedStyle(элемент)
-/* let check = getComputedStyle(document.body); */
+//Определяем номера ячеек где поставлен "O"
+function locatedOfO(arr) {
+  let polozhenieO = [];  
+    for (i = 0; i < arr.length; i++) {
+      if (arr[i] === 'O') {
+        polozhenieO.push(i);
+      } 
+    }
+  return polozhenieO;
+}
 
-
-//Проработать выигрышные вариации, при совпадении комбинации в массиве wins вывести alarm
-
-//Надо сделать чтобы деактивированные поля не входили в область field потому что по клику на них сменяется очередь и нарушается порядок хода
-
-
-/* //Меняем цвет при наведении мышкой на ячейку
-cells.forEach(eachCell => eachCell.addEventListener('mouseover', () => {
-  eachCell.setAttribute("style", ".cell:hover"); */
-
-//Меняем цвет обратно на белый при уходе с ячейки
-/* cells.forEach(eachCell => eachCell.addEventListener('mouseout', () => {
-  eachCell.setAttribute("style", "background-color:white");
-})); */
-
-
+//Функция определяющая массив с проставленными 'X' и 'O' на места соотвествующие номерам в polozhenieX и polozhenieO
+function xoInArrayWins() {
+  let winsClone = wins;
+  for (let row of winsClone) {
+    for (let j = 0; j < row.length; j++) {
+      if (locatedOfO(arrayOfFreeCells).includes(row[j])) {
+        row[j] = 'O';
+      } else if (locatedOfX(arrayOfFreeCells).includes(row[j])) {
+        row[j] = 'X';
+      }
+    }
+  }
+  //Переводим получившийся массив в строку и ищем там совпадение на ХХХ или ООО
+  let include_X_O = JSON.stringify(winsClone);
+  let additionalStr = '';
+  for (let j = 0; j < include_X_O.length; j++) {
+    if (include_X_O[j] === '"') {
+      continue;
+    } else additionalStr += include_X_O[j];
+  }
+  if (additionalStr.includes('[X,X,X]') || additionalStr.includes('[O,O,O]')) {
+    console.log('Ura ti viygral!');
+  }
+return Boolean;
+};
