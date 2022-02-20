@@ -1,16 +1,50 @@
-@import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Indie+Flower&family=Kaushan+Script&family=Knewave&family=Permanent+Marker&family=Rock+Salt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Indie+Flower&family=Knewave&family=Permanent+Marker&family=Russo+One&display=swap");
 
 /* 
 font-family: 'Indie Flower', cursive;
 font-family: 'Knewave', cursive;
-font-family: 'Permanent Marker', cursive; */
+font-family: 'Permanent Marker', cursive;
+font-family: 'Russo One', sans-serif;
+font-family: 'Dela Gothic One', cursive;
+*/
 
 body {
-  min-height: 98vh;
+  min-height: 100vh;
   display: flex;
+  margin: 0;
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+dialog {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  border: 0;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-size: 50pt;
+  font-family: "Russo One", "Arial Narrow", Arial, sans-serif;
+}
+
+h1 {
+  color: white;
+  opacity: 100%;
+  margin: 35vh 0 50px 0;
+}
+
+.restart {
+  height: 100px;
+  width: 320px;
+  font-size: 25pt;
+  border-radius: 10px;
+  font-family: "Russo One", "Arial Narrow", Arial, sans-serif;
+}
+
+.restart:hover {
+  background: rgb(195, 190, 190);
 }
 
 .field {

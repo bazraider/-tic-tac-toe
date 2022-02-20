@@ -76,7 +76,7 @@ function xoInArrayWins() {
       }
     }
   }
-  //Переводим получившийся массив в строку и ищем там совпадение на ХХХ или ООО
+  //Переводим получившийся массив в строку и ищем там совпадение на [X,X,X] или [O,O,O]
   let include_X_O = JSON.stringify(winsClone);
   let additionalStr = '';
   for (let j = 0; j < include_X_O.length; j++) {
@@ -85,7 +85,13 @@ function xoInArrayWins() {
     } else additionalStr += include_X_O[j];
   }
   if (additionalStr.includes('[X,X,X]') || additionalStr.includes('[O,O,O]')) {
-    console.log('Ura ti viygral!');
-  }
-return Boolean;
+    document.querySelector('dialog').show();
+    return true;
+  } else return false;
 };
+
+document.querySelector('.restart').addEventListener('click', reset);
+
+function reset() {
+  location.reload();
+}
