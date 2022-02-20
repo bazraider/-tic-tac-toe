@@ -32,11 +32,13 @@ cells.forEach(eachCell => eachCell.addEventListener('click', () => {
   if (clicks % 2 === 0) {
     eachCell.innerHTML = arrayOfFreeCells[eachCell.dataset.cell] = 'X'; /* Поочередно проставляем "X" и "O" на клик мышки и Заполняем массив ходов крестиками и ноликами в зависимости от места установки на поле.*/
     clicks += 1; //Cчётчик кликов.
+    console.log(clicks);
     eachCell.style.pointerEvents='none';//Деактивируем поле стилем pointerEvents если в нём стоит Крестик или Нолик.
     xoInArrayWins();
   } else {
     eachCell.innerHTML = arrayOfFreeCells[eachCell.dataset.cell] = 'O'; /* Поочередно проставляем "X" и "O" на клик мышки и Заполняем массив ходов крестиками и ноликами в зависимости от места установки на поле.*/
     clicks += 1; //Cчётчик кликов.
+    console.log(clicks);
     eachCell.style.pointerEvents='none';//Деактивируем поле стилем pointerEvents если в нём стоит Крестик или Нолик.
     xoInArrayWins();
   }
@@ -76,7 +78,7 @@ function xoInArrayWins() {
       }
     }
   }
-  //Переводим получившийся массив в строку и ищем там совпадение на [X,X,X] или [O,O,O]
+  //Переводим получившийся массив в строку
   let include_X_O = JSON.stringify(winsClone);
   let additionalStr = '';
   for (let j = 0; j < include_X_O.length; j++) {
@@ -84,14 +86,22 @@ function xoInArrayWins() {
       continue;
     } else additionalStr += include_X_O[j];
   }
+/*   for (let j = 0; j < include_X_O.length; j++) {
+    if (additionalStr.includes(parseInt(j))) {
+      console.log('nichya!');
+    }
+  } */
+  //Ищем там совпадение на [X,X,X] или [O,O,O]. Если комбинация является выигрышным вариантом, то выводим диалоговое окно с кнопкой рестарт
   if (additionalStr.includes('[X,X,X]') || additionalStr.includes('[O,O,O]')) {
     document.querySelector('dialog').show();
-    return true;
-  } else return false;
+  } else if (clicks === 9) { //Вариант на ничью
+    document.querySelector('dialog > h1').innerHTML = "Ничья!";
+    document.querySelector('dialog').show();
+  }  
 };
 
+//Слушатель на кнопку и перезагрузка страницы
 document.querySelector('.restart').addEventListener('click', reset);
-
 function reset() {
   location.reload();
 }
