@@ -12,6 +12,7 @@ const cells = document.querySelectorAll('.cell');
 const podskazka = document.querySelectorAll('.podskazka');
 let clicks = 0;
 let arrayOfFreeCells = ['', '', '', '', '', '', '', '', ''];
+const audio = document.querySelector('#audio');
 
 /* 
 Отображение подсказки в виде "X" или "O" - я не додумался как по другому решить вопрос с подсказкой в виде X или O, создал внутри ячейки ещё один div и при наведении внутренний див всплывает как подсказка, а при клике X или O ставятся в родительский div. 
@@ -31,14 +32,16 @@ podskazka.forEach(word => word.addEventListener('mouseout', () => {
 cells.forEach(eachCell => eachCell.addEventListener('click', () => {
   if (clicks % 2 === 0) {
     eachCell.innerHTML = arrayOfFreeCells[eachCell.dataset.cell] = 'X'; /* Поочередно проставляем "X" и "O" на клик мышки и Заполняем массив ходов крестиками и ноликами в зависимости от места установки на поле.*/
+    audio.currentTime = 0;
+    audio.play();
     clicks += 1; //Cчётчик кликов.
-    console.log(clicks);
     eachCell.style.pointerEvents='none';//Деактивируем поле стилем pointerEvents если в нём стоит Крестик или Нолик.
     xoInArrayWins();
   } else {
     eachCell.innerHTML = arrayOfFreeCells[eachCell.dataset.cell] = 'O'; /* Поочередно проставляем "X" и "O" на клик мышки и Заполняем массив ходов крестиками и ноликами в зависимости от места установки на поле.*/
+    audio.currentTime = 0;
+    audio.play();
     clicks += 1; //Cчётчик кликов.
-    console.log(clicks);
     eachCell.style.pointerEvents='none';//Деактивируем поле стилем pointerEvents если в нём стоит Крестик или Нолик.
     xoInArrayWins();
   }
@@ -86,11 +89,7 @@ function xoInArrayWins() {
       continue;
     } else additionalStr += include_X_O[j];
   }
-/*   for (let j = 0; j < include_X_O.length; j++) {
-    if (additionalStr.includes(parseInt(j))) {
-      console.log('nichya!');
-    }
-  } */
+
   //Ищем там совпадение на [X,X,X] или [O,O,O]. Если комбинация является выигрышным вариантом, то выводим диалоговое окно с кнопкой рестарт
   if (additionalStr.includes('[X,X,X]') || additionalStr.includes('[O,O,O]')) {
     document.querySelector('dialog').show();
