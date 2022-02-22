@@ -6,8 +6,7 @@ const wins = [
 [1, 4, 7], 
 [2, 5, 8], 
 [0, 4, 8],
-[2, 4, 6], 
-[2, 5, 6]];
+[2, 4, 6]];
 const cells = document.querySelectorAll('.cell');
 const podskazka = document.querySelectorAll('.podskazka');
 let clicks = 0;
